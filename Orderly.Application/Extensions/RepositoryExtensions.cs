@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using Orderly.Application.Entities;
-using Orderly.Application.Interfaces;
+using Orderly.Application.Repositories;
 using Orderly.Application.Specifications;
 
 namespace Orderly.Application.Extensions;

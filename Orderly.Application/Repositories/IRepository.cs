@@ -2,7 +2,7 @@
 using Orderly.Application.Entities;
 using Orderly.Application.Specifications;
 
-namespace Orderly.Application.Interfaces;
+namespace Orderly.Application.Repositories;
 
 public interface IRepository<T, TKey>
     where T : IEntity<TKey>

@@ -5,8 +5,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Orderly.Application.Entities;
 using Orderly.Application.Extensions;
-using Orderly.Application.Interfaces;
 using Orderly.Application.Models;
+using Orderly.Application.Repositories;
 
 namespace Orderly.WebAPI.Controllers;
 

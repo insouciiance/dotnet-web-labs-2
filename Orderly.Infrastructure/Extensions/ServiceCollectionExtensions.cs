@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Orderly.Application.Entities;
-using Orderly.Application.Interfaces;
+using Orderly.Application.Repositories;
 using Orderly.Infrastructure.Data.InMemory;
 
 namespace Orderly.Infrastructure.Extensions;
