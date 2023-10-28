@@ -12,9 +12,9 @@ public interface IRepository<T, TKey>
 
     void Add(T entity);
 
-    void Delete(T entity);
-
     void Update(T entity);
+
+    void Delete(TKey id);
 
     IEnumerable<T> List(ISpecification<T> specification);
 }

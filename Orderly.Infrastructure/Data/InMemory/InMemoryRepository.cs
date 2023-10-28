@@ -15,11 +15,11 @@ internal class InMemoryRepository<T, TKey> : IRepository<T, TKey>
 
     public void Add(T entity) => _entries.Add(entity.Id, entity);
 
-    public void Delete(T entity) => _entries.Remove(entity.Id);
-
     public T Get(TKey id) => _entries[id];
 
     public void Update(T entity) => _entries[entity.Id] = entity;
+
+    public void Delete(TKey id) => _entries.Remove(id);
 
     public IEnumerable<T> List(ISpecification<T> specification)
         => _entries.Values.Where(specification.IsSatisfiedBy);

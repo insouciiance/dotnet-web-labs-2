@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Orderly.Application.Entities;
 using Orderly.Application.Models;
@@ -10,6 +11,7 @@ using Orderly.Application.Specifications;
 
 namespace Orderly.WebAPI.Controllers;
 
+[Authorize]
 [Route("api/tickets")]
 [ApiController]
 public class TicketsController(IRepository<Ticket, Guid> ticketsRepo, IMapper mapper) : ControllerBase
