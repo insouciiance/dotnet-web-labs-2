@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Orderly.Application.Entities;
-using Orderly.Application.Extensions;
 using Orderly.Application.Models;
 using Orderly.Application.Repositories;
+using Orderly.Application.Specifications;
 
 namespace Orderly.WebAPI.Controllers;
 
@@ -15,9 +15,15 @@ namespace Orderly.WebAPI.Controllers;
 public class TicketsController(IRepository<Ticket, Guid> ticketsRepo, IMapper mapper) : ControllerBase
 {
     [HttpGet]
-    public IActionResult GetTickets()
+    public IActionResult GetTickets([FromQuery] TicketStatus? status = null)
     {
-        var tickets = ticketsRepo.List().Select(mapper.Map<TicketReadDto>);
+        ISpecification<Ticket> filter = status switch
+        {
+            { } s => new TicketStatusSpecification(s),
+            _ => new TrueSpecification<Ticket>()
+        };
+
+        var tickets = ticketsRepo.List(filter).Select(mapper.Map<TicketReadDto>);
         return Ok(tickets);
     }
 
