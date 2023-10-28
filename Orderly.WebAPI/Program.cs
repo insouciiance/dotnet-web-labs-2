@@ -1,6 +1,9 @@
+using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Orderly.Application.Entities;
+using Orderly.Infrastructure.Extensions;
 
 namespace Orderly.WebAPI;
 
@@ -13,9 +16,14 @@ public class Program
         // Add services to the container.
 
         builder.Services.AddControllers();
+
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+
+        builder.Services.AddAutoMapper(typeof(IEntity<>));
+
+        builder.Services.AddInMemoryRepository<Ticket, Guid>();
 
         var app = builder.Build();
 
@@ -29,8 +37,7 @@ public class Program
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
-
-
+        
         app.MapControllers();
 
         app.Run();
