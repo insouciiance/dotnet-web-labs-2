@@ -6,7 +6,7 @@ using Orderly.Application.Entities;
 using Orderly.Application.Identity;
 using Orderly.Application.Models;
 using Orderly.Application.Repositories;
-using Orderly.Application.Specifications;
+using Orderly.Application.Specifications.AppUsers;
 using Crypto = BCrypt.Net.BCrypt;
 
 namespace Orderly.WebAPI.Controllers;

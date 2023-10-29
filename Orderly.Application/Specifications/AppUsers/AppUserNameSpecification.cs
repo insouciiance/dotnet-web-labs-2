@@ -1,6 +1,6 @@
 ﻿using Orderly.Application.Entities;
 
-namespace Orderly.Application.Specifications;
+namespace Orderly.Application.Specifications.AppUsers;
 
 public class AppUserNameSpecification(string username) : ISpecification<AppUser>
 {

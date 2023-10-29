@@ -15,4 +15,6 @@ public class Ticket : IEntity<Guid>
     public DateTime Created { get; set; }
 
     public DateTime Deadline { get; set; }
+
+    public Guid UserId { get; set; }
 }
