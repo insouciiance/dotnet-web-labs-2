@@ -11,11 +11,11 @@ using Orderly.Application.Specifications;
 
 namespace Orderly.WebAPI.Controllers;
 
-[Authorize]
 [Route("api/tickets")]
 [ApiController]
 public class TicketsController(IRepository<Ticket, Guid> ticketsRepo, IMapper mapper) : ControllerBase
 {
+    [Authorize]
     [HttpGet]
     public IActionResult GetTickets([FromQuery] TicketStatus? status = null)
     {
@@ -29,6 +29,7 @@ public class TicketsController(IRepository<Ticket, Guid> ticketsRepo, IMapper ma
         return Ok(tickets);
     }
 
+    [Authorize]
     [HttpGet]
     [Route("{id:guid}")]
     public IActionResult GetTicketById([FromRoute] Guid id)
@@ -38,8 +39,9 @@ public class TicketsController(IRepository<Ticket, Guid> ticketsRepo, IMapper ma
         return Ok(readDto);
     }
 
+    [Authorize]
     [HttpPost]
-    public IActionResult PostTicket([FromBody] TicketCreateDto createDto)
+    public IActionResult CreateTicket([FromBody] TicketCreateDto createDto)
     {
         var ticket = mapper.Map<Ticket>(createDto);
         ticket.Id = Guid.NewGuid();

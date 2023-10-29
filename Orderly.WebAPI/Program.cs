@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Orderly.Application.Entities;
+using Orderly.Application.Identity;
 using Orderly.Infrastructure.Extensions;
 
 namespace Orderly.WebAPI;
@@ -27,6 +28,7 @@ public class Program
         builder.Services.AddAutoMapper(typeof(IEntity<>));
 
         builder.Services.AddInMemoryRepository<Ticket, Guid>();
+        builder.Services.AddInMemoryRepository<AppUser, Guid>();
 
         builder.Services
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -34,9 +36,9 @@ public class Program
             {
                 x.TokenValidationParameters = new()
                 {
-                    ValidIssuer = builder.Configuration["JwtSettings:Issuer"],
-                    ValidAudience = builder.Configuration["JwtSettings:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtSettings:Key"]!)),
+                    ValidIssuer = builder.Configuration[IdentityConstants.CONFIG_SECTION_ISSUER],
+                    ValidAudience = builder.Configuration[IdentityConstants.CONFIG_SECTION_AUDIENCE],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration[IdentityConstants.CONFIG_SECTION_KEY]!)),
                     ValidateIssuer = true,
                     ValidateAudience = true,
                     ValidateLifetime = true,
