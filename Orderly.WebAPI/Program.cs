@@ -4,10 +4,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Orderly.Application.Entities;
 using Orderly.Application.Identity;
 using Orderly.Infrastructure.Extensions;
+using Orderly.WebAPI.Swagger;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Orderly.WebAPI;
 
@@ -24,6 +27,7 @@ public class Program
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
+        builder.Services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
 
         builder.Services.AddAutoMapper(typeof(IEntity<>));
 
@@ -47,6 +51,8 @@ public class Program
             });
 
         builder.Services.AddAuthorization();
+
+        builder.Services.AddJwtGenerator();
 
         var app = builder.Build();
 

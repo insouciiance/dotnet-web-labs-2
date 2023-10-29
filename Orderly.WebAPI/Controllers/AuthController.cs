@@ -3,6 +3,7 @@ using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Orderly.Application.Entities;
+using Orderly.Application.Identity;
 using Orderly.Application.Models;
 using Orderly.Application.Repositories;
 using Orderly.Application.Specifications;
@@ -12,7 +13,7 @@ namespace Orderly.WebAPI.Controllers;
 
 [Route("api/auth")]
 [ApiController]
-public class AuthController(IRepository<AppUser, Guid> usersRepo, IMapper mapper) : ControllerBase
+public class AuthController(IRepository<AppUser, Guid> usersRepo, IJwtTokenGenerator tokenGenerator, IMapper mapper) : ControllerBase
 {
     [HttpPost]
     [Route("register")]
@@ -43,6 +44,8 @@ public class AuthController(IRepository<AppUser, Guid> usersRepo, IMapper mapper
         if (!Crypto.Verify(userDto.Password, user.PasswordHash))
             return BadRequest("Invalid password");
 
-        return Ok();
+        string jwt = tokenGenerator.GenerateToken(user);
+
+        return Ok(jwt);
     }
 }
