@@ -1,22 +1,17 @@
 ﻿using System;
+using Orderly.Application.Entities;
 
-namespace Orderly.Application.Entities;
+namespace Orderly.Application.Models.Tickets;
 
-public class Ticket : IEntity<Guid>
+public class TicketUpdateDto
 {
-    public Guid Id { get; set; }
-
     public string Title { get; set; } = string.Empty;
 
     public string Description { get; set; } = string.Empty;
 
     public TicketStatus Status { get; set; }
 
-    public DateTime Created { get; set; }
-
     public DateTime Deadline { get; set; }
-
-    public Guid UserId { get; set; }
 
     public Guid? ParentId { get; set; }
 }

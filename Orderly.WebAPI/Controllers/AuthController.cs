@@ -4,7 +4,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Orderly.Application.Entities;
 using Orderly.Application.Identity;
-using Orderly.Application.Models;
+using Orderly.Application.Models.AppUsers;
 using Orderly.Application.Repositories;
 using Orderly.Application.Specifications.AppUsers;
 using Orderly.WebAPI.Identity;

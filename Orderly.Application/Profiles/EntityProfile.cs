@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Orderly.Application.Entities;
-using Orderly.Application.Models;
+using Orderly.Application.Models.Tickets;
 
 namespace Orderly.Application.Profiles;
 

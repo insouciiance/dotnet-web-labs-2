@@ -1,4 +1,4 @@
-﻿namespace Orderly.Application.Models;
+﻿namespace Orderly.Application.Models.AppUsers;
 
 public class AppUserLoginDto
 {

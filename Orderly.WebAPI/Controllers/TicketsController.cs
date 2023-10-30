@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Orderly.Application.Entities;
 using Orderly.Application.Extensions;
-using Orderly.Application.Models;
+using Orderly.Application.Models.Tickets;
 using Orderly.Application.Repositories;
 using Orderly.Application.Specifications;
 using Orderly.Application.Specifications.Tickets;
@@ -67,6 +67,29 @@ public class TicketsController(IRepository<Ticket, Guid> ticketsRepo, IMapper ma
 
         var readDto = mapper.Map<TicketReadDto>(ticket);
         return Created(ticket.Id.ToString(), readDto);
+    }
+
+    [Authorize]
+    [HttpPut]
+    [Route("{id:guid}")]
+    public IActionResult PatchTicket([FromRoute] Guid id, [FromBody] TicketUpdateDto updateDto)
+    {
+        Guid userId = User.GetUserId();
+
+        var ticket = ticketsRepo.Get(id);
+
+        if (userId != ticket.UserId)
+            return Forbid();
+
+        ticket.Title = updateDto.Title;
+        ticket.Description = updateDto.Description;
+        ticket.Status = updateDto.Status;
+        ticket.Deadline = updateDto.Deadline;
+        ticket.ParentId = updateDto.ParentId;
+
+        ticketsRepo.Update(ticket);
+
+        return Ok(mapper.Map<TicketReadDto>(ticket));
     }
 
     [Authorize(Roles = IdentityRoles.ADMIN)]

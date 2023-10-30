@@ -1,7 +1,7 @@
 ﻿using System;
 using Orderly.Application.Entities;
 
-namespace Orderly.Application.Models;
+namespace Orderly.Application.Models.Tickets;
 
 public class TicketReadDto
 {
@@ -16,4 +16,6 @@ public class TicketReadDto
     public DateTime Created { get; set; }
 
     public DateTime Deadline { get; set; }
+
+    public Guid? ParentId { get; set; }
 }
