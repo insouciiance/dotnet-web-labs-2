@@ -100,7 +100,7 @@ public class TicketsController(IRepository<Ticket, Guid> ticketsRepo, IMapper ma
         // admin can delete any ticket, don't check that user id matches
         var ticket = ticketsRepo.Get(id);
 
-        ticketsRepo.Delete(id);
+        ticketsRepo.Delete(ticket);
         var readDto = mapper.Map<TicketReadDto>(ticket);
         return Ok(readDto);
     }

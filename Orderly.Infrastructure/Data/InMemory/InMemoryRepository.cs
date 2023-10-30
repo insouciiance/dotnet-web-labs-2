@@ -19,7 +19,7 @@ internal class InMemoryRepository<T, TKey> : IRepository<T, TKey>
 
     public void Update(T entity) => _entries[entity.Id] = entity;
 
-    public void Delete(TKey id) => _entries.Remove(id);
+    public void Delete(T entity) => _entries.Remove(entity.Id);
 
     public IEnumerable<T> List(ISpecification<T> specification)
         => _entries.Values.Where(specification.IsSatisfiedBy);

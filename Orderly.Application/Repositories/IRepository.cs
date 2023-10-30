@@ -14,7 +14,7 @@ public interface IRepository<T, TKey>
 
     void Update(T entity);
 
-    void Delete(TKey id);
+    void Delete(T entity);
 
     IEnumerable<T> List(ISpecification<T> specification);
 }

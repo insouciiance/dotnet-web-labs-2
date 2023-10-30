@@ -13,24 +13,19 @@ internal class EntityFrameworkRepository<T, TKey>(DbContext context) : IReposito
 {
     public void Add(T entity)
     {
-        context.Add(entity);
+        context.Set<T>().Add(entity);
         context.SaveChanges();
     }
 
-    public void Delete(TKey id)
+    public void Delete(T entity)
     {
-        T entity = new()
-        {
-            Id = id
-        };
-
-        context.Remove(entity);
+        context.Set<T>().Remove(entity);
         context.SaveChanges();
     }
 
     public T Get(TKey id)
     {
-        T entity = context.Find<T>(id)!;
+        T entity = context.Set<T>().Find(id)!;
         return entity;
     }
 
@@ -41,7 +36,7 @@ internal class EntityFrameworkRepository<T, TKey>(DbContext context) : IReposito
 
     public void Update(T entity)
     {
-        context.Update(entity);
+        context.Set<T>().Update(entity);
         context.SaveChanges();
     }
 }
