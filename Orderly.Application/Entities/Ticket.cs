@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Orderly.Application.Entities;
 
@@ -19,4 +20,10 @@ public class Ticket : IEntity<Guid>
     public Guid UserId { get; set; }
 
     public Guid? ParentId { get; set; }
+
+    public virtual AppUser User { get; set; } = null!;
+
+    public virtual Ticket Parent { get; set; } = null!;
+
+    public virtual List<Ticket> Children { get; set; } = null!;
 }

@@ -1,8 +1,10 @@
-﻿using Orderly.Application.Entities;
+﻿using System;
+using System.Linq.Expressions;
+using Orderly.Application.Entities;
 
 namespace Orderly.Application.Specifications.Tickets;
 
 public class TicketStatusSpecification(TicketStatus status) : ISpecification<Ticket>
 {
-    public bool IsSatisfiedBy(Ticket ticket) => ticket.Status == status;
+    public Expression<Func<Ticket, bool>> Expression => x => x.Status == status;
 }

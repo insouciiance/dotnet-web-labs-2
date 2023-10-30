@@ -3,5 +3,5 @@
 public interface IEntity<TKey>
     where TKey : notnull
 {
-    TKey Id { get; }
+    TKey Id { get; set; }
 }

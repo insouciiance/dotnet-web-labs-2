@@ -2,6 +2,7 @@ using System;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
@@ -31,8 +32,9 @@ public class Program
 
         builder.Services.AddAutoMapper(typeof(IEntity<>));
 
-        builder.Services.AddInMemoryRepository<Ticket, Guid>();
-        builder.Services.AddInMemoryRepository<AppUser, Guid>();
+        builder.Services.AddEfContext(builder.Configuration.GetConnectionString("DefaultConnection")!);
+        builder.Services.AddEfRepository<Ticket, Guid>();
+        builder.Services.AddEfRepository<AppUser, Guid>();
 
         builder.Services
             .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
