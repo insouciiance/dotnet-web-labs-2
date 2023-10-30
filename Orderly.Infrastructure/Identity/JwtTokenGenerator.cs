@@ -14,12 +14,13 @@ internal class JwtTokenGenerator(IConfiguration configuration) : IJwtTokenGenera
 {
     private static readonly TimeSpan ExpirationSpan = TimeSpan.FromHours(1);
 
-    public string GenerateToken(AppUser user)
+    public string GenerateToken(AppUser user, string role)
     {
         List<Claim> claims =
         [
             new(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new(ClaimTypes.Name, user.Username)
+            new(ClaimTypes.Name, user.Username),
+            new(ClaimTypes.Role, role)
         ];
 
         SymmetricSecurityKey key = new(Encoding.UTF8.GetBytes(configuration[IdentityConstants.CONFIG_SECTION_KEY]!));

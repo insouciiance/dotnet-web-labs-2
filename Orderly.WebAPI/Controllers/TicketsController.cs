@@ -10,6 +10,7 @@ using Orderly.Application.Repositories;
 using Orderly.Application.Specifications;
 using Orderly.Application.Specifications.Tickets;
 using Orderly.WebAPI.Extensions;
+using Orderly.WebAPI.Identity;
 
 namespace Orderly.WebAPI.Controllers;
 
@@ -68,17 +69,13 @@ public class TicketsController(IRepository<Ticket, Guid> ticketsRepo, IMapper ma
         return Created(ticket.Id.ToString(), readDto);
     }
 
-    [Authorize]
+    [Authorize(Roles = IdentityRoles.ADMIN)]
     [HttpDelete]
     [Route("{id:guid}")]
     public IActionResult DeleteTicket([FromRoute] Guid id)
     {
-        Guid userId = User.GetUserId();
-
+        // admin can delete any ticket, don't check that user id matches
         var ticket = ticketsRepo.Get(id);
-
-        if (userId != ticket.UserId)
-            return Forbid();
 
         ticketsRepo.Delete(id);
         var readDto = mapper.Map<TicketReadDto>(ticket);

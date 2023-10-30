@@ -7,6 +7,7 @@ using Orderly.Application.Identity;
 using Orderly.Application.Models;
 using Orderly.Application.Repositories;
 using Orderly.Application.Specifications.AppUsers;
+using Orderly.WebAPI.Identity;
 using Crypto = BCrypt.Net.BCrypt;
 
 namespace Orderly.WebAPI.Controllers;
@@ -44,7 +45,10 @@ public class AuthController(IRepository<AppUser, Guid> usersRepo, IJwtTokenGener
         if (!Crypto.Verify(userDto.Password, user.PasswordHash))
             return BadRequest("Invalid password");
 
-        string jwt = tokenGenerator.GenerateToken(user);
+        // assume "admin" is an admin
+        string role = user.Username == IdentityRoles.ADMIN ? IdentityRoles.ADMIN : string.Empty;
+
+        string jwt = tokenGenerator.GenerateToken(user, role);
 
         return Ok(jwt);
     }
