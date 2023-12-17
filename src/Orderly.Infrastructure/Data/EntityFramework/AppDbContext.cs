@@ -6,9 +6,9 @@ namespace Orderly.Infrastructure.Data.EntityFramework;
 
 internal class AppDbContext(DbContextOptions options) : DbContext(options)
 {
-    public DbSet<AppUser> Users { get; set; }
+    public virtual DbSet<AppUser> Users { get; set; }
  
-    public DbSet<Ticket> Tickets { get; set; }
+    public virtual DbSet<Ticket> Tickets { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

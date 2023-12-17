@@ -23,4 +23,9 @@
     <ProjectReference Include="..\Orderly.Application\Orderly.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Orderly.Tests.Integration"/>
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2"/>
+  </ItemGroup>
+  
 </Project>
