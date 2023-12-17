@@ -3,12 +3,16 @@ using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Orderly.Application.Entities;
 using Orderly.Infrastructure.Data.EntityFramework;
 using Orderly.WebAPI.Startup;
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Xunit;
+using Crypto = BCrypt.Net.BCrypt;
 
 namespace Orderly.Tests.Integration;
 
@@ -43,5 +47,34 @@ public abstract class TestBase : IAsyncDisposable
         _startupBuilder = new(new TestApplicationStartup());
         _server = _startupBuilder.CreateBuilder();
         _server.WebHost.UseTestServer();
+    }
+
+    protected AppUser CreateUser(string username, string password)
+    {
+        Guid id = Guid.NewGuid();
+
+        AppUser user = new()
+        {
+            Id = id,
+            Username = username,
+            PasswordHash = Crypto.HashPassword(password)
+        };
+
+        _appDbContext.Users.Add(user);
+        _appDbContext.SaveChanges();
+
+        return user;
+    }
+
+    protected static JwtSecurityToken DecodeJwt(string token)
+    {
+        JwtSecurityTokenHandler handler = new();
+        var decoded = handler.ReadToken(token);
+        return (JwtSecurityToken)decoded;
+    }
+
+    protected static string? GetClaim(JwtSecurityToken token, string type)
+    {
+        return token.Claims.FirstOrDefault(x => x.Type == type)?.Value;
     }
 }
