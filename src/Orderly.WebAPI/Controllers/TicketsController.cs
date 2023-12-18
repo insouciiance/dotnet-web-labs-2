@@ -45,6 +45,9 @@ public class TicketsController(IRepository<Ticket, Guid> ticketsRepo, IMapper ma
 
         var ticket = ticketsRepo.Get(id);
 
+        if (ticket is null)
+            return NotFound();
+
         if (userId != ticket.UserId)
             return Forbid();
 
