@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{36F7B5D0-6
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Orderly.Tests.Unit", "test\Orderly.Tests.Unit\Orderly.Tests.Unit.csproj", "{7CA1D179-065B-444E-B082-FBFB28DF2B4A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orderly.Tests.Integration", "Orderly.Tests.Integration\Orderly.Tests.Integration.csproj", "{9A5EDB19-53C6-4684-9926-43D9DB6DB330}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orderly.Tests.Integration", "test\Orderly.Tests.Integration\Orderly.Tests.Integration.csproj", "{9A5EDB19-53C6-4684-9926-43D9DB6DB330}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

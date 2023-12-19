@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Orderly.WebAPI\Orderly.WebAPI.csproj" />
+    <ProjectReference Include="..\..\src\Orderly.WebAPI\Orderly.WebAPI.csproj" />
   </ItemGroup>
 
 </Project>
